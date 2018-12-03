@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script>
+			initializeCastApi = function() {
+				cast.framework.CastContext.getInstance().setOptions({
+					receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID
+				});
+			};
+			window['__onGCastApiAvailable'] = function(isAvailable) {
+				if (isAvailable) {
+					initializeCastApi();
+					var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+					var mediaInfo = new chrome.cast.media.MediaInfo(currentMediaURL, contentType);
+					var request = new chrome.cast.media.LoadRequest(mediaInfo);
+					castSession.loadMedia(request).then(function() {
+						console.log('Load succeed');
+					}, function(errorCode) {
+						console.log('Error code: ' + errorCode);
+					});
+				}
+			};
+		</script>
 		<script defer src="https://www.gstatic.com/cv/js/sender/v1/cast_sender.js?loadCastFramework=1"></script>
 	</head>
 	<body>
