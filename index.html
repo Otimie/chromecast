@@ -4,6 +4,7 @@
 		<script>
 			window['__onGCastApiAvailable'] = function(isAvailable) {
 				if (isAvailable) {
+					cast.framework.setLoggerLevel(0);
 					cast.framework.CastContext.getInstance().setOptions({
 						receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID
 					});
