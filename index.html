@@ -9,6 +9,8 @@
 						receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
 						autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
 					});
+					var player = new cast.framework.RemotePlayer();
+					var playerController = new cast.framework.RemotePlayerController(player);
 					var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
 					var mediaInfo = new chrome.cast.media.MediaInfo('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'video/mp4');
 					var request = new chrome.cast.media.LoadRequest(mediaInfo);
