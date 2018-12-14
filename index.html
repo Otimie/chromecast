@@ -7,19 +7,33 @@
 					cast.framework.setLoggerLevel(0);
 					cast.framework.CastContext.getInstance().setOptions({
 						receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
-						autoJoinPolicy: chrome.cast.AutoJoinPolicy.ORIGIN_SCOPED
 					});
-					//var player = new cast.framework.RemotePlayer();
-					//var playerController = new cast.framework.RemotePlayerController(player);
-					var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
-					console.log(castSession);
-					var mediaInfo = new chrome.cast.media.MediaInfo('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'video/mp4');
-					var request = new chrome.cast.media.LoadRequest(mediaInfo);
-					castSession.loadMedia(request).then(function() {
-						console.log('Load succeed');
-					}, function(errorCode) {
-						console.log('Error code: ' + errorCode);
+					
+					cast.framework.CastContext.getInstance().addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, function (castStateEventData) {
+						console.log('castStateEvent', castStateEventData);
+						var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+						if (castSession) {
+							var mediaInfo = new chrome.cast.media.MediaInfo('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'video/mp4');
+							var request = new chrome.cast.media.LoadRequest(mediaInfo);
+							castSession.loadMedia(request).then(function() {
+								console.log('Load succeed');
+							}, function(errorCode) {
+								console.log('Error code: ' + errorCode);
+							});
+
+						}
 					});
+
+					
+					//var castSession = cast.framework.CastContext.getInstance().getCurrentSession();
+					//console.log(castSession);
+					//var mediaInfo = new chrome.cast.media.MediaInfo('http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4', 'video/mp4');
+					//var request = new chrome.cast.media.LoadRequest(mediaInfo);
+					//castSession.loadMedia(request).then(function() {
+					//	console.log('Load succeed');
+					//}, function(errorCode) {
+					//	console.log('Error code: ' + errorCode);
+					//});
 				}
 			};
 		</script>
