@@ -6,7 +6,7 @@
 				if (isAvailable) {
 					cast.framework.setLoggerLevel(0);
 					cast.framework.CastContext.getInstance().setOptions({
-						receiverApplicationId: chrome.cast.media.DEFAULT_MEDIA_RECEIVER_APP_ID,
+						receiverApplicationId: 'E2FB050E',
 					});
 					
 					cast.framework.CastContext.getInstance().addEventListener(cast.framework.CastContextEventType.CAST_STATE_CHANGED, function (castStateEventData) {
